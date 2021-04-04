@@ -30,8 +30,8 @@ class NormalizedStr:
         reproduce an equivalent object.
         '''
         return "NormalizedStr('" + \
-                unicodedata.normalize(self.normal_form, self.text) + \
-                "', '" + self.normal_form + "')"
+            unicodedata.normalize(self.normal_form, self.text) + \
+            "', '" + self.normal_form + "')"
 
     def __str__(self):
         '''
