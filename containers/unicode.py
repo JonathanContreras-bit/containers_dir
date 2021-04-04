@@ -29,9 +29,9 @@ class NormalizedStr:
         code that can be substituted directly into the python interpreter to
         reproduce an equivalent object.
         '''
-        return ("NormalizedStr('" + \
+        return "NormalizedStr('" + \
                 unicodedata.normalize(self.normal_form, self.text) + \
-                "', '" + self.normal_form + "')")
+                "', '" + self.normal_form + "')"
 
     def __str__(self):
         '''
