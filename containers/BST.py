@@ -42,6 +42,22 @@ class BST(BinaryTree):
         '''
         return type(self).__name__ + '(' + str(self.to_list('inorder')) + ')'
 
+    def __eq__(self, t2):
+        '''
+        This method checks to see if the contents of self and t2 are equal.
+        The expression `a == b` desugars to `a.__eq__(b)`.
+
+        NOTE:
+        We only care about "semantic" equality,
+        and not "syntactic" equality.
+        That is, we do not care about the tree structure itself,
+        and only care about the contents of what the tree contains.
+
+        HINT:
+        Convert the contents of both trees into a sorted list,
+        then compare those sorted lists for equality.
+        '''
+
     def is_bst_satisfied(self):
         '''
         Whenever you implement a data structure,
@@ -61,7 +77,13 @@ class BST(BinaryTree):
     def _is_bst_satisfied(node):
         '''
         FIXME:
-        Implement this method.
+        The current implementation has a bug:
+        it only checks if the children of the current node are less than/greater than,
+        rather than ensuring that all nodes to the left/right are less than/greater than.
+
+        HINT:
+        Use the _find_smallest and _find_largest functions to fix the bug.
+        You should use the _ prefixed methods because those are static methods just like this one.
         '''
         ret = True
         if node.left:
@@ -156,13 +178,16 @@ class BST(BinaryTree):
     def find_smallest(self):
         '''
         Returns the smallest value in the tree.
+        '''
+        if self.root is None:
+            raise ValueError('Nothing in tree')
+        else:
+            return BST._find_smallest(self.root)
 
-        FIXME:
-        Implement this function.
-
-        HINT:
-        Create a recursive staticmethod helper function,
-        similar to how the insert and find functions have recursive helpers.
+    @staticmethod
+    def _find_smallest(node):
+        '''
+        This is a helper function for find_smallest and not intended to be called directly by the user.
         '''
         if self.root is None:
             raise ValueError('Nothing in tree')
@@ -185,7 +210,7 @@ class BST(BinaryTree):
         Implement this function.
 
         HINT:
-        Create a recursive staticmethod helper function.
+        Follow the pattern of the _find_smallest function.
         '''
         if self.root is None:
             raise ValueError('Nothing in tree')
@@ -209,8 +234,7 @@ class BST(BinaryTree):
         Implement this function.
 
         HINT:
-        You must have find_smallest/find_largest working correctly
-        before you can implement this function.
+        You should have everything else working before you implement this function.
 
         HINT:
         Use a recursive helper function.
@@ -262,6 +286,9 @@ class BST(BinaryTree):
 
         FIXME:
         Implement this function.
+
+        HINT:
+        See the insert_list function.
         '''
         for x in xs:
             self.remove(x)
