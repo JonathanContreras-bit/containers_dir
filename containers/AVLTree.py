@@ -55,8 +55,8 @@ class AVLTree(BST):
             return True
         else:
             return (abs(AVLTree._balance_factor(node)) <= 1) and\
-                    (AVLTree._is_avl_satisfied(node.left)) and\
-                    (AVLTree._is_avl_satisfied(node.right))
+                   (AVLTree._is_avl_satisfied(node.left)) and\
+                   (AVLTree._is_avl_satisfied(node.right))
 
     @staticmethod
     def _copy_nodes(node):
