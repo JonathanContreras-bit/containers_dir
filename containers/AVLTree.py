@@ -54,9 +54,9 @@ class AVLTree(BST):
         if node is None:
             return True
         else:
-            return ((abs(AVLTree._balance_factor(node)) <= 1) and
-                    (AVLTree._is_avl_satisfied(node.left)) and
-                    (AVLTree._is_avl_satisfied(node.right)))
+            return (abs(AVLTree._balance_factor(node)) <= 1) and\
+                    (AVLTree._is_avl_satisfied(node.left)) and\
+                    (AVLTree._is_avl_satisfied(node.right))
 
     @staticmethod
     def _copy_nodes(node):
@@ -80,11 +80,11 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
         swap = AVLTree._copy_nodes(node.right.left)
-        newNode = Node(node.right.value)
-        newNode.right = AVLTree._copy_nodes(node.right.right)
-        newNode.left = AVLTree._copy_nodes(node)
-        newNode.left.right = swap
-        return newNode
+        newnode = Node(node.right.value)
+        newnode.right = AVLTree._copy_nodes(node.right.right)
+        newnode.left = AVLTree._copy_nodes(node)
+        newnode.left.right = swap
+        return newnode
 
     @staticmethod
     def _right_rotate(node):
@@ -99,11 +99,11 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
         swap = AVLTree._copy_nodes(node.left.right)
-        newNode = Node(node.left.value)
-        newNode.left = AVLTree._copy_nodes(node.left.left)
-        newNode.right = AVLTree._copy_nodes(node)
-        newNode.right.left = swap
-        return newNode
+        newnode = Node(node.left.value)
+        newnode.left = AVLTree._copy_nodes(node.left.left)
+        newnode.right = AVLTree._copy_nodes(node)
+        newnode.right.left = swap
+        return newnode
 
     def insert(self, value):
         '''
@@ -136,9 +136,9 @@ class AVLTree(BST):
         so I recommend including that code here.
         '''
         if node is not None:
-            BF = AVLTree._balance_factor(node)
+            bf = AVLTree._balance_factor(node)
             # right rotation: parent and left have positive BF
-            if BF > 1:
+            if bf > 1:
                 # left sub rotation then right rotation: parent+ left-
                 if (AVLTree._balance_factor(node.left) < 0):
                     node.left = AVLTree._left_rotate(node.left)
@@ -148,7 +148,7 @@ class AVLTree(BST):
                 node.left = want.left
 
             # left rotation: parent and right have negative BF
-            elif BF < -1:
+            elif bf < -1:
                 # right sub rotation then left rotation: parent- right+
                 if (AVLTree._balance_factor(node.right) > 0):
                     node.right = AVLTree._right_rotate(node.right)
