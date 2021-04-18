@@ -79,18 +79,23 @@ class BST(BinaryTree):
         '''
         FIXME:
         The current implementation has a bug:
-        it only checks if the children of the current node are less than/greater than,
-        rather than ensuring that all nodes to the left/right are less than/greater than.
+        it only checks if the children of the current node are less
+        than/greater than,
+        rather than ensuring that all nodes to the left/right are less
+        than/greater than.
 
         HINT:
         Use the _find_smallest and _find_largest functions to fix the bug.
-        You should use the _ prefixed methods because those are static methods just like this one.
+        You should use the _ prefixed methods because those are static
+        methods just like this one.
         '''
         ret = True
         if node.left:
-            ret &= ((BST._find_largest(node.left) < node.value) and BST._is_bst_satisfied(node.left))
+            ret &= ((BST._find_largest(node.left) < node.value) and\
+                    BST._is_bst_satisfied(node.left))
         if node.right:
-            ret &= ((BST._find_smallest(node.right) > node.value) and BST._is_bst_satisfied(node.right))
+            ret &= ((BST._find_smallest(node.right) > node.value) and\
+                    BST._is_bst_satisfied(node.right))
         return ret
 
     def insert(self, value):
@@ -182,7 +187,8 @@ class BST(BinaryTree):
     @staticmethod
     def _find_smallest(node):
         '''
-        This is a helper function for find_smallest and not intended to be called directly by the user.
+        This is a helper function for find_smallest and not intended to be
+        called directly by the user.
         '''
         assert node is not None
         if node.left is None:
@@ -222,7 +228,8 @@ class BST(BinaryTree):
         Implement this function.
 
         HINT:
-        You should have everything else working before you implement this function.
+        You should have everything else working before you implement this
+        function.
 
         HINT:
         Use a recursive helper function.
