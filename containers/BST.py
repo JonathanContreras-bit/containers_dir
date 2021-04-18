@@ -92,7 +92,7 @@ class BST(BinaryTree):
         ret = True
         if node.left:
             ret &= (BST._find_largest(node.left) < node.value) and\
-                    BST._is_bst_satisfied(node.left)
+                BST._is_bst_satisfied(node.left)
         if node.right:
             ret &= (BST._find_smallest(node.right) > node.value) and\
                 BST._is_bst_satisfied(node.right)
