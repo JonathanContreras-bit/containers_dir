@@ -95,7 +95,7 @@ class BST(BinaryTree):
                     BST._is_bst_satisfied(node.left)
         if node.right:
             ret &= (BST._find_smallest(node.right) > node.value) and\
-                    BST._is_bst_satisfied(node.right)
+                BST._is_bst_satisfied(node.right)
         return ret
 
     def insert(self, value):
