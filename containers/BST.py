@@ -184,13 +184,6 @@ class BST(BinaryTree):
         '''
         This is a helper function for find_smallest and not intended to be called directly by the user.
         '''
-        if self.root is None:
-            raise ValueError('Nothing in tree')
-        else:
-            return BST._find_smallest(self.root)
-
-    @staticmethod
-    def _find_smallest(node):
         assert node is not None
         if node.left is None:
             return node.value
