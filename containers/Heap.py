@@ -10,7 +10,7 @@ This homework is using an explicit tree implementation to help you get more prac
 from containers.BinaryTree import BinaryTree, Node
 
 
-class Heap():
+class Heap(BinaryTree):
     '''
     FIXME:
     Heap is currently not a subclass of BinaryTree.
@@ -24,6 +24,9 @@ class Heap():
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
+        super().__init__()
+        if xs is not None:
+            self.insert_list(xs)
 
     def __repr__(self):
         '''
@@ -59,6 +62,19 @@ class Heap():
         FIXME:
         Implement this method.
         '''
+        ret = True
+        if node is not None:
+            if node.left is not None:
+                ret &= node.value <= node.left.value
+                if node.right is not None:
+                    ret &= node.value <= node.right.value
+                else:
+                    ret &= node.left.left is None
+            else:
+                ret &= node.right is None
+        else:
+            return ret
+        return ret and Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
 
     def insert(self, value):
         '''
@@ -79,6 +95,32 @@ class Heap():
         Create a @staticmethod helper function,
         following the same pattern used in the BST and AVLTree insert functions.
         '''
+        if self.root is not None:
+            nodes = self.__len__()
+            return Heap._insert(value, self.root, '{0:b}'.format(1 + nodes)[1:])
+        else:
+            self.root = Node(value)
+
+    @staticmethod
+    def _insert(value, node, route):
+        if route:
+            if route[0] == '1':
+                if node.value > value:
+                    temp = node.value
+                    node.value = value
+                    node.right = Heap._insert(temp, node.right, route[1:])
+                else:
+                    node.right = Heap._insert(value, node.right, route[1:])
+            elif route[0] == '0':
+                if node.value > value:
+                    temp = node.value
+                    node.value = value
+                    node.left = Heap._insert(temp, node.left, route[1:])
+                else:
+                    node.left = Heap._insert(value, node.left, route[1:])
+        else:
+            node = Node(value)
+        return node
 
     def insert_list(self, xs):
         '''
@@ -87,6 +129,8 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+        for x in xs:
+            self.insert(x)
 
     def find_smallest(self):
         '''
@@ -95,6 +139,8 @@ class Heap():
         FIXME:
         Implement this function.
         '''
+        if self.root is not None:
+            return self.root.value
 
     def remove_min(self):
         '''
@@ -115,3 +161,45 @@ class Heap():
         It's possible to do it with only a single helper (or no helper at all),
         but I personally found dividing up the code into two made the most sense.
         '''
+        if self.root:
+            nodes = self.__len__()
+            if nodes == 1:
+                self.root = None
+            else:
+                last = '{0:b}'.format(nodes)[1:]
+                self.root, self.root.value = Heap._remove_bottom_right(self.root, last)
+                self.root = Heap._trickle(self.root)
+
+    @staticmethod
+    def _remove_bottom_right(node, route):
+        if route:
+            if route[0] == '1':
+                node.right, value = Heap._remove_bottom_right(node.right, route[1:])
+            elif route[0] == '0':
+                node.left, value = Heap._remove_bottom_right(node.left, route[1:])
+        else:
+            value = node.value
+            node = None
+        return (node, value)
+
+    @staticmethod
+    def _trickle(node):
+        if node.left is not None:
+            if node.right is not None:
+                if node.left.value <= node.right.value and node.left.value < node.value:
+                    temp = node.left.value
+                    node.left.value = node.value
+                    node.value = temp
+                    Heap._trickle(node.left)
+                elif node.right.value < node.left.value and node.right.value < node.value:
+                    temp = node.right.value
+                    node.right.value = node.value
+                    node.value = temp
+                    Heap._trickle(node.right)
+            else:
+                if node.left.value < node.value:
+                    temp = node.left.value
+                    node.left.value = node.value
+                    node.value = temp
+                    Heap._trickle(node.left)
+        return node
