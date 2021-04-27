@@ -7,3 +7,4 @@ Build status:
 1. [![](https://github.com/JonathanContreras-bit/containers_dir/workflows/tests-BinaryTree/badge.svg)](https://github.com/JonathanContreras-bit/containers_dir/actions?query=workflow%3Atests-BinaryTree)
 1. [![](https://github.com/JonathanContreras-bit/containers_dir/workflows/tests-BST/badge.svg)](https://github.com/JonathanContreras-bit/containers_dir/actions?query=workflow%3Atests-BST)
 1. [![](https://github.com/JonathanContreras-bit/containers_dir/workflows/tests-AVLTree/badge.svg)](https://github.com/JonathanContreras-bit/containers_dir/actions?query=workflow%3Atests-AVLTree)
+1. [![](https://github.com/JonathanContreras-bit/containers_dir/workflows/tests-heap/badge.svg)](https://github.com/JonathanContreras-bit/containers_dir/actions?query=workflow%3Atests-heap)
